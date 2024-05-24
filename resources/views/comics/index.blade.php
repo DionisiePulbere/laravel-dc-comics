@@ -13,6 +13,12 @@
             <div>€ {{ $comic->price }}</div>
             <div>Data di uscita: {{ $comic->sale_date }}</div>
             <p class="card-text">Descrizione: {{ $comic->description }}</p>
+            <div>
+                <a href="{{ route('comics.show', ['comic' => $comic->id] ) }}" class="btn btn-primary">Scopri</a>
+            </div>
+            <div>
+                <a href="{{ route('comics.edit', ['comic' => $comic->id] ) }}" class="btn btn-primary">Modiifca</a>
+            </div>
         </div>
     </div>
     @endforeach
