@@ -32,7 +32,7 @@
             <div class="mb-3">
                 <label for="type" class="form-label">Tipo</label>
                 <select class="form-control" id="type" name="type" required>
-                    <option selected>Scegli il Tipo</option>
+                    <option value="" selected>Scegli il Tipo</option>
                     <option value="comic book">Comic Book</option>
                     <option value="graphic novel">Graphic Novel</option>
                 </select>
