@@ -12,23 +12,22 @@
             <div>Tipo: {{ $comic->type }}</div>
             <div>€ {{ $comic->price }}</div>
             <div>Data di uscita: {{ $comic->sale_date }}</div>
-            <p class="card-text">Descrizione: {{ $comic->description }}</p>
-            <div>
-                <a href="{{ route('comics.show', ['comic' => $comic->id] ) }}" class="btn btn-primary">Scopri</a>
-            </div>
-            <div class='my-1'>
-                <a href="{{ route('comics.edit', ['comic' => $comic->id] ) }}" class="btn btn-primary">Modiifca</a>
-            </div>
-            <div class='my-1'>
-                <form action="{{ route('comics.destroy', ['comic' => $comic->id]) }}" method="POST">
-                    @csrf
-                    @method('DELETE')
-
-                    <button type="submit" class="btn btn-danger js-delete-btn" data-comic-title="{{ $comic->title }}">Elimina</button>
-
-                </form>
-
-                <!-- <a href="{{ route('comics.destroy', ['comic' => $comic->id] ) }}" class="btn btn-danger">Elimina</a> -->
+            <div class="buttons d-flex">
+                <div class='my-1'>
+                    <a href="{{ route('comics.show', ['comic' => $comic->id] ) }}" class="btn btn-primary">Scopri</a>
+                </div>
+                <div class='my-1'>
+                    <a href="{{ route('comics.edit', ['comic' => $comic->id] ) }}" class="btn btn-primary">Modiifca</a>
+                </div>
+                <div class='my-1'>
+                    <form action="{{ route('comics.destroy', ['comic' => $comic->id]) }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        
+                        <button type="submit" class="btn btn-danger js-delete-btn" data-comic-title="{{ $comic->title }}">Elimina</button>
+                        
+                    </form>
+                </div>
             </div>
         </div>
     </div>
