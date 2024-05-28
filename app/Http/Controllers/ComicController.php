@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Comic;
+use Illuminate\Support\Facades\Validator;
 
 class ComicController extends Controller
 {
@@ -41,6 +42,9 @@ class ComicController extends Controller
      */
     public function store(Request $request)
     {
+        $formData = $request->all();
+        $this->validator($formData);
+
         $formData = $request->all();
 
         $newComic = new Comic();
@@ -105,6 +109,9 @@ class ComicController extends Controller
 
        $comic->update($formData);
 
+       $formData = $request->all();
+        $this->validator($formData);
+
        return redirect()->route('comics.show', ['comic' => $comic->id]);
     }
 
@@ -120,5 +127,43 @@ class ComicController extends Controller
         $comic->delete();
 
         return redirect()->route('comics.index');
+    }
+
+    private function validator($data){
+        $validator = Validator::make(
+        $data,
+        [
+            'title' => 'required|min:5|max:100',
+            'description' => 'required|min:10|max:2000',
+            'thumb' => 'required|max: 250',
+            'price' => 'required|decimal:2|numeric|max:999999.99',
+            'type' => 'required|min:4|max:50',
+            'series' => 'required|min:4|max:50',
+            'sale_date' => 'required|date'
+        ],
+        [
+            'title.required' => 'Il campo titolo è obbligatorio',
+            'title.max' => 'Il campo titolo non può avere più di 50 caratteri',
+            'title.min' => 'Il campo titolo deve avere almeno 5 caratteri',
+            'description.required' => 'Il campo descrizione è obbligatorio',
+            'description.max' => 'Il campo descrizione non può avere più di 2000 caratteri',
+            'description.min' => 'Il campo descrizione deve avere almeno 10 caratteri',
+            'thumb.required' => 'Il campo immagine è obbligatorio',
+            'thumb.max' => 'Il campo immagine non può avere più di 250 caratteri',
+            'price.required' => 'Il campo prezzo è obbligatorio',
+            'price.decimal' => 'Il campo prezzo deve avere 2 decimali',
+            'type.required' => 'Il campo tipo è obbligatorio',
+            'type.max' => 'Il campo tipo non può avere più di 50 caratteri',
+            'type.min' => 'Il campo tipo deve avere almeno 4 caratteri',
+            'series.required' => 'Il campo serie è obbligatorio',
+            'series.max' => 'Il campo serie non può avere più di 50 caratteri',
+            'series.min' => 'Il campo serie deve avere almeno 4 caratteri',
+            'sale_date.required' => 'Il campo data è obbligatorio'
+
+        ]
+
+        )->validate();
+
+        return $validator;
     }
 }
